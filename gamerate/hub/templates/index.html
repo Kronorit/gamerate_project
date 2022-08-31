@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews</title>
+</head>
+<body>
+    <h1>Reseñas</h1>
+    <div>
+        Número de reseñas: {{no_reviews}}
+        <ul>
+        {% for review in reviews %}
+            <li><a href="review/{{review.id}}">{{review}}</a></li>
+        {% endfor %}
+        </ul>
+        
+    </div>
+</body>
+</html>
