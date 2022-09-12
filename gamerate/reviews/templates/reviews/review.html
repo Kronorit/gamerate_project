@@ -27,5 +27,12 @@
         </ul>
     {% endfor %}
     </div>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{commentForm}}
+            <button type="submit">Comentar</button>
+        </form>
+    </div>
 </body>
 </html>

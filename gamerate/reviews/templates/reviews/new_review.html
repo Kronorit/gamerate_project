@@ -7,9 +7,10 @@
     <title>Crear una reseña</title>
 </head>
 <body>
-    <form action="{% url 'index' %}" method="POST">
+    <form action="" method="POST">
         {% csrf_token %}
         {{reviewForm}}
+        <button type="submit">Crear</button>
     </form>
 </body>
 </html>
