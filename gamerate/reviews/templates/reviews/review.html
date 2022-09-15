@@ -27,6 +27,7 @@
         </ul>
     {% endfor %}
     </div>
+    {% if user.is_authenticated%}
     <div>
         <form method="post">
             {% csrf_token %}
@@ -34,5 +35,8 @@
             <button type="submit">Comentar</button>
         </form>
     </div>
+    {% else %}
+    <a href="{% url 'user_login'%}">Iniciar sesión para comentar</a>
+    {% endif %}
 </body>
 </html>

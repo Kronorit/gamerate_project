@@ -7,7 +7,23 @@
     <title>Reviews</title>
 </head>
 <body>
+
+    {% if page == 'http://127.0.0.1:8000/login/'%}
+    <p>Has iniciado sesión correctamente</p>
+    {% elif page == 'http://127.0.0.1:8000/' %}
+    <p>Has cerrado sesión</p>
+    {% endif %}
+    
     <h1>Reseñas</h1>
+    {% if user.is_authenticated%}
+    <div>
+        <p>Estás logeado como {{user.username}}</p>
+        <a href="{%url 'user_logout'%}">Cerrar sesión</a>
+    </div>
+    {% else %}
+        <a href="/login/">Iniciar sesión</a>
+        <a href="/register/">Registrarse</a>
+    {% endif %}
     <div>
         Número de reseñas: {{no_reviews}}
         <ul>
