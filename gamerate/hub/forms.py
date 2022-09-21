@@ -1,13 +1,12 @@
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
-from django.forms import ModelForm, PasswordInput
+from django import forms
 from django.utils.translation import gettext_lazy as _
 
 
 class UserAuthenticationForm(AuthenticationForm):
     class Meta:
         model = User
-        edit_only=True
         fields = ['username', 'password']
         
         labels = {
@@ -19,21 +18,19 @@ class UserAuthenticationForm(AuthenticationForm):
             'username': _('')
         }
 
-class UserRegistrationForm(ModelForm):
+class UserRegistrationForm(UserCreationForm):
+    password1 = forms.CharField(label=_('Contraseña'), widget=forms.PasswordInput(attrs={'class': 'form-control', 'required':'true'}))
+    password2 = forms.CharField(label=_('Confirmar contraseña'), widget=forms.PasswordInput(attrs={'class': 'form-control', 'required':'true'}))
+    def __init__(self, *args, **kwargs) -> None:
+        super(UserRegistrationForm, self).__init__(*args, **kwargs)
+
+        for fieldname in ['username', 'password1', 'password2']:
+            self.fields[fieldname].help_text = None
+
     class Meta:
         model = User
-        fields = ['username', 'password', 'email']
+        fields = ['username', 'password1', 'password2']
 
-        widgets = {
-            'password': PasswordInput()
-        }
-
-        labels = {
-            'username': _('Nombre de usuario'),
-            'password': _('Contraseña'),
-            'email': _('Dirección Email')
-        }
-
-        help_texts = {
-            'username': _('')
+        labels={
+            'username': _('Nombre de usuario')
         }

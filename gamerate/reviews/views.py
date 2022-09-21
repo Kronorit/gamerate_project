@@ -8,6 +8,7 @@ from .models import Comment, Review
 from .forms import ReviewForm, CommentForm
 
 def createReview(request):
+    request.session['last_url'] = request.build_absolute_uri()
     userId = request.session.get('_auth_user_id')
     if userId == None:
         return redirect('/login/', permanent=False)

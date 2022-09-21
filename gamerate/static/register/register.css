@@ -1,0 +1,21 @@
+form {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    border: 5px solid black;
+    border-radius: 10px;
+    width: 15em;
+    padding: 10px;
+}
+
+.fieldwrapper{
+    display: flex;
+    flex-direction: column;
+    margin: 0px 10px 20px 10px;
+}
+
+.fieldwrapper label {
+    margin-bottom: 5px;
+}

@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 
 from reviews.models import Review
-from .forms import UserAuthenticationForm, UserRegistrationForm
+from .forms import UserAuthenticationForm, UserRegistrationForm, UserCreationForm
 
 # Create your views here.
 
@@ -28,7 +28,6 @@ def userLogin(request):
             username = userForm.cleaned_data['username']
             password = userForm.cleaned_data['password']
             user = authenticate(username=username, password=password)
-            print(userForm.cleaned_data)
             if user is not None:
                 login(request, user)
                 if last_url != None:
@@ -46,23 +45,26 @@ def userLogout(request):
     logout(request)
     return redirect('/')
 
+'''
+MODIFICAR METODO DE VALIDACIÓN DE CONTRASEÑA
+'''
+
 def userRegister(request):
     last_url = request.session['last_url']
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
+            print('sí')
             username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            email = form.cleaned_data['email']
+            password = form.cleaned_data['password2']
             user = User.objects.create_user(username=username, 
                                             password=password, 
-                                            email=email, 
+                                            email='', 
                                             date_joined=datetime.now())
             user.save()
             login(request, user)
             return redirect(last_url)
         else:
-            form = UserRegistrationForm()
             return render(request, 'register.html', {'form': form})
     else:
         form = UserRegistrationForm()
